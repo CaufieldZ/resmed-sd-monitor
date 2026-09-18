@@ -4,6 +4,11 @@ The UI, reports and chart labels are fully localized. English is the base table;
 `zh` (Simplified Chinese) and `ja` (Japanese) ship with the repo — the Japanese
 table is machine-assisted and would especially benefit from native review.
 
+The README is localized too (`README.md` / `README.zh.md` / `README.ja.md`), with a
+language switcher line under the title of each. When you add a locale, add a README
+variant and register it in the switcher lines of all existing READMEs and in this
+file's header.
+
 ## Adding a locale
 
 1. Copy `src/resmed_sd_monitor/i18n/en.py` to `<code>.py` (ISO 639-1: `de`, `fr`,

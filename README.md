@@ -1,15 +1,19 @@
 <div align="center">
 
+<img src="docs/assets/banner.png" alt="ResMed SD-card data analysis" width="880">
+
 # resmed-sd-monitor
 
 **Turn your ResMed SD card into an auditable therapy-monitoring report.**
 
 Quality-gated efficacy trends · breath-by-breath waveform analysis · honest pressure-headroom curves
 
+**English** · [简体中文](README.zh.md) · [日本語](README.ja.md)
+
 [![CI](https://github.com/CaufieldZ/resmed-sd-monitor/actions/workflows/ci.yml/badge.svg)](https://github.com/CaufieldZ/resmed-sd-monitor/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
-[![Not a medical device](https://img.shields.io/badge/⚠-not%20a%20medical%20device-red.svg)](#disclaimer)
+[![Not a medical device](https://img.shields.io/badge/%E2%9A%A0-not%20a%20medical%20device-red.svg)](#disclaimer)
 
 [Quick start](#quick-start) · [What you get](#what-you-get) · [Commands](#commands) · [Reading the output](#reading-the-output) · [Disclaimer](#disclaimer)
 
@@ -27,6 +31,10 @@ It is the analyst to OSCAR's viewer. Everything is local, offline, and reproduci
 > **Not a medical device.** It turns machine-recorded estimates into screening cues and
 > review prompts — it cannot diagnose sleep apnea, decide your pressure settings, or
 > replace a sleep physician. See the [full disclaimer](#disclaimer).
+
+## How it works
+
+<img src="docs/assets/pipeline.svg" alt="Pipeline: SD card → parse → quality gates → nightly summaries and waveform layer → pressure-headroom verdict → archived report" width="880">
 
 ## What you get
 

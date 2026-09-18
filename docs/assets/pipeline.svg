@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 596" width="980" height="596" role="img" aria-label="Pipeline: SD card to parsed channels, through quality gates, into nightly summaries and the breath-by-breath waveform layer, then the pressure-headroom verdict and the archived report">
+  <style>
+    .b    { fill: #ffffff; stroke: #d0d7de; stroke-width: 1.2; }
+    .ba   { fill: #eef4fb; stroke: #b6d0ea; stroke-width: 1.2; }
+    .bg   { fill: #fff8e6; stroke: #e0c56a; stroke-width: 1.4; }
+    .bx   { fill: #fbfbfc; stroke: #d8dee4; stroke-width: 1.2; stroke-dasharray: 5 4; }
+    .bo   { fill: #eef7f0; stroke: #a8cfb4; stroke-width: 1.2; }
+    .t1   { font: 600 14px -apple-system, "Segoe UI", system-ui, sans-serif; fill: #1f2328; }
+    .t2   { font: 400 12px -apple-system, "Segoe UI", system-ui, sans-serif; fill: #59636e; }
+    .tg   { font: 700 12.5px -apple-system, "Segoe UI", system-ui, sans-serif; fill: #7a5c00; letter-spacing: .4px; }
+    .lab  { font: 400 11.5px -apple-system, "Segoe UI", system-ui, sans-serif; fill: #7a828a; }
+    .fl   { stroke: #8c959f; stroke-width: 1.6; fill: none; }
+    .flx  { stroke: #b0a06a; stroke-width: 1.4; fill: none; stroke-dasharray: 5 4; }
+    @media (prefers-color-scheme: dark) {
+      .b  { fill: #161b22; stroke: #30363d; }
+      .ba { fill: #101c2c; stroke: #2a4a6b; }
+      .bg { fill: #2a230e; stroke: #6b5a1f; }
+      .bx { fill: #12161b; stroke: #30363d; }
+      .bo { fill: #0f1f16; stroke: #2b5a3c; }
+      .t1 { fill: #e6edf3; }
+      .t2 { fill: #9198a1; }
+      .tg { fill: #d4b95e; }
+      .lab{ fill: #7a828a; }
+      .fl { stroke: #6e7681; }
+      .flx{ stroke: #8a7a45; }
+    }
+  </style>
+
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8c959f"/>
+    </marker>
+    <marker id="ahx" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#b0a06a"/>
+    </marker>
+  </defs>
+
+  <!-- 1. input -->
+  <rect class="ba" x="60" y="14" width="860" height="58" rx="9"/>
+  <text class="t1" x="490" y="38" text-anchor="middle">SD card</text>
+  <text class="t2" x="490" y="57" text-anchor="middle">DATALOG/&lt;YYYYMMDD&gt;/*.edf · STR.edf</text>
+  <path class="fl" d="M490 72 V 98" marker-end="url(#ah)"/>
+
+  <!-- 2. parse -->
+  <rect class="b" x="60" y="100" width="860" height="58" rx="9"/>
+  <text class="t1" x="490" y="124" text-anchor="middle">Parse EDF / EDF+</text>
+  <text class="t2" x="490" y="143" text-anchor="middle">BRP 25 Hz flow + pressure · PLD 0.5 Hz summaries · SAD 1 Hz oximetry · EVE event annotations</text>
+  <path class="fl" d="M490 158 V 184" marker-end="url(#ah)"/>
+
+  <!-- 3. quality gates -->
+  <rect class="bg" x="170" y="186" width="500" height="62" rx="9"/>
+  <text class="tg" x="420" y="211" text-anchor="middle">QUALITY GATES</text>
+  <text class="t2" x="420" y="232" text-anchor="middle">record ≥ 2 h · EVE + Leak present · Leak95 ≤ 24 L/min</text>
+
+  <!-- exclusion branch -->
+  <path class="flx" d="M670 217 H 726" marker-end="url(#ahx)"/>
+  <rect class="bx" x="732" y="188" width="188" height="58" rx="9"/>
+  <text class="t1" x="826" y="212" text-anchor="middle" font-size="12.5">Excluded nights</text>
+  <text class="t2" x="826" y="231" text-anchor="middle">reasons printed — never</text>
+  <text class="t2" x="826" y="245" text-anchor="middle">silently dropped</text>
+
+  <path class="fl" d="M420 248 V 276" marker-end="url(#ah)"/>
+
+  <!-- 4. two analysis paths -->
+  <rect class="b" x="60" y="278" width="410" height="76" rx="9"/>
+  <text class="t1" x="265" y="304" text-anchor="middle">Nightly summaries</text>
+  <text class="t2" x="265" y="324" text-anchor="middle">REI / OAI / CAI · leak · SpO₂</text>
+  <text class="t2" x="265" y="341" text-anchor="middle">event–pressure alignment · therapy intervals</text>
+
+  <rect class="b" x="510" y="278" width="410" height="76" rx="9"/>
+  <text class="t1" x="715" y="304" text-anchor="middle">Breath-by-breath waveform</text>
+  <text class="t2" x="715" y="324" text-anchor="middle">inspiratory flattening index · event clusters</text>
+  <text class="t2" x="715" y="341" text-anchor="middle">periodic-breathing fit (from 25 Hz flow)</text>
+
+  <path class="fl" d="M265 354 V 374 H 470" />
+  <path class="fl" d="M715 354 V 374 H 510" />
+  <path class="fl" d="M490 374 V 392" marker-end="url(#ah)"/>
+
+  <!-- 5. verdict -->
+  <rect class="b" x="150" y="394" width="680" height="72" rx="9"/>
+  <text class="t1" x="490" y="420" text-anchor="middle">Pressure-headroom verdict</text>
+  <text class="t2" x="490" y="440" text-anchor="middle">feedback check (post-event Δ vs random-time controls) — because APAP pressurizes in response</text>
+  <text class="t2" x="490" y="456" text-anchor="middle">then the pressure–flatness curve, with Ramp drive-by bins excluded</text>
+
+  <path class="fl" d="M490 466 V 484" marker-end="url(#ah)"/>
+
+  <!-- 6. output -->
+  <rect class="bo" x="230" y="486" width="520" height="58" rx="9"/>
+  <text class="t1" x="490" y="510" text-anchor="middle">report.md · snapshot.json · charts (PNG)</text>
+  <text class="t2" x="490" y="529" text-anchor="middle">archived under &lt;data-dir&gt;/reports/ — one command, reproducible</text>
+
+  <!-- segment bands label, small footnote -->
+  <text class="lab" x="490" y="572" text-anchor="middle">segmented by your tuning log — every comparison carries a Mann–Whitney p and a Hodges–Lehmann shift estimate</text>
+  <text class="lab" x="490" y="588" text-anchor="middle">screening cues only — not a diagnosis, not a prescription</text>
+</svg>
