@@ -1,0 +1,19 @@
+# Repo lint config — deliberately narrow so results don't depend on editor/global
+# setups. Notes on deliberate non-selections:
+# - DTZ*: EDF headers and display times are intentionally naive-local (wall clock).
+# - BLE001/S110: EDF parsing intentionally swallows corrupt-file exceptions
+#   per-file instead of aborting a whole report.
+target-version = "py310"
+line-length = 110
+
+[lint]
+select = ["E4", "E7", "E9", "F", "I", "W292"]
+# E701/E702: the ported analysis code keeps its original compact style
+# (`if x: return`, `a = 1; b = 2`); preserving it keeps the file diffable
+# against the code it was extracted from.
+ignore = ["E701", "E702"]
+
+[lint.per-file-ignores]
+# examples/ and tests/ import after sys.path setup, which needs late imports
+"tests/*" = ["E402"]
+"examples/*" = ["E402"]

@@ -1,0 +1,24 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# User data — never commit SD-card dumps, tuning logs or generated reports.
+# The demo dataset under examples/demo/ is synthetic and intentionally committed.
+/data/
+*/data/
+DATALOG/
+SETTINGS/
+STR.edf
+Identification.crc
+Identification.tgt
+tuning_log.json
+apple_health/
+reports/
+
+.claude/
+.vscode/
+.DS_Store
