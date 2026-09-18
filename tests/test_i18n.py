@@ -32,19 +32,34 @@ def _restore_lang():
     set_lang('en')
 
 
+def _all_tables():
+    """Every shipped locale's table, discovered from available() so a newly
+    registered locale is covered by the parity checks automatically."""
+    from importlib import import_module
+    for code in available():
+        if code == 'en':
+            yield code, en.STRINGS
+        else:
+            yield code, import_module(f'resmed_sd_monitor.i18n.{code}').STRINGS
+
+
 class TestTableParity:
     def test_used_keys_exist_in_en(self):
         assert not (_used_keys() - set(en.STRINGS)), 'keys missing from en table'
 
     def test_translations_cover_en_exactly(self):
-        for table, name in ((zh.STRINGS, 'zh'), (ja.STRINGS, 'ja')):
+        for name, table in _all_tables():
+            if name == 'en':
+                continue
             missing = set(en.STRINGS) - set(table)
             extra = set(table) - set(en.STRINGS)
             assert not missing, f'{name} missing: {sorted(missing)}'
             assert not extra, f'{name} extra: {sorted(extra)}'
 
     def test_placeholder_parity_with_en(self):
-        for table, name in ((zh.STRINGS, 'zh'), (ja.STRINGS, 'ja')):
+        for name, table in _all_tables():
+            if name == 'en':
+                continue
             for k, v in en.STRINGS.items():
                 assert placeholders(v) == placeholders(table[k]), f'{name}.{k}'
 

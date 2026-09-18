@@ -66,7 +66,7 @@ def _night_date(i: int) -> str:
     return (date(2024, 3, 1) + timedelta(days=i)).strftime("%Y%m%d")
 
 
-def build_pressure(t_s, rng, min_press, max_press, night, events):
+def build_pressure(t_s, rng, min_press, max_press, label, events):
     """Ramp → wandering base → reactive post-event bumps, clipped at the ceiling.
 
     The reactive bumps emulate AutoSet behaviour (event -> +Δ over ~2 min, slow
@@ -77,7 +77,7 @@ def build_pressure(t_s, rng, min_press, max_press, night, events):
         + 0.25 * np.sin(2 * np.pi * t_s / 1300.0)
     ramp = np.clip(t_s / ramp_s, 0, 1) ** 0.7
     p = 4.5 + (base - 4.5) * ramp
-    bump_amp = 1.2 if night[0] == "late-heavy" else 0.7
+    bump_amp = 1.2 if label == "late-heavy" else 0.7
     for kind, onset in events:
         if kind != "oa":
             continue
@@ -88,7 +88,7 @@ def build_pressure(t_s, rng, min_press, max_press, night, events):
     return np.clip(p + noise, 4.0, max_press)
 
 
-def build_flow(t_s, fs, rng, press, night, events, limitation):
+def build_flow(t_s, fs, rng, press, periodic, events, limitation):
     """Asymmetric synthetic breathing; plateau-shaped inspiration where pressure
     is low (flow limitation), near-zero flow during events, optional periodic
     tidal-volume modulation (CSR-like nights)."""
@@ -103,7 +103,7 @@ def build_flow(t_s, fs, rng, press, night, events, limitation):
     plateau = np.sign(insp) * np.abs(insp) ** 0.12
     shape = np.where(limited, plateau, insp)
     amp = 0.34 * (1 + 0.08 * np.sin(2 * np.pi * t_s / 900.0))
-    if night[6]:  # periodic breathing: tidal-volume modulation, 46 s period
+    if periodic:  # tidal-volume modulation, 46 s period (matches the PLD TidVol path)
         amp = amp * (1 + 0.55 * np.sin(2 * np.pi * t_s / 46.0))
     flow = amp * shape + rng.normal(0, 0.012, t_s.size)
     # events flatten the flow
@@ -149,8 +149,8 @@ def write_night(out_root: Path, idx: int, seed: int):
     t_brp = np.arange(0, dur_s, 1.0 / FS_BRP)
     events = _place_events(rng, n_oa, n_hyp, n_ca, clustered, hours, label == "late-heavy")
 
-    press = build_pressure(t_brp, rng, min_press + pbias, max_press, night, events)
-    flow = build_flow(t_brp, FS_BRP, rng, press, night, events, lim)
+    press = build_pressure(t_brp, rng, min_press + pbias, max_press, label, events)
+    flow = build_flow(t_brp, FS_BRP, rng, press, periodic, events, lim)
 
     hh, mm = (22, 5 + (idx * 7) % 40) if not leaky else (23, 30)
     stamp = f"{hh:02d}{mm:02d}{17:02d}"

@@ -75,6 +75,22 @@ def test_wave(demo_data, capsys):
     assert not MISSING                              # no missing i18n keys
 
 
+def test_demo_periodic_breathing_lands_on_the_csr_night(demo_data):
+    """Regression: the generator's tidal-volume modulation must be driven by the
+    `periodic` flag — a wrong tuple index silently attached it to the clustered
+    nights instead, so the CSR-like night never passed the corr² threshold and
+    the sample report showed a false detection on the wrong nights."""
+    M.set_data_dir(demo_data)
+    def corr2(date):
+        wave = M.night_wave(str(demo_data / "DATALOG" / date))
+        return wave["period_corr2"] if wave else None
+    csr = corr2("20240307")            # csr-like archetype
+    assert csr is not None and csr >= M.WAVE_PERIOD_CORR2
+    for clustered in ("20240303", "20240306"):
+        c = corr2(clustered)
+        assert c is None or c < M.WAVE_PERIOD_CORR2, f"{clustered} falsely periodic ({c})"
+
+
 def test_detail(demo_data, capsys):
     rc = M.main(["--data-dir", str(demo_data), "20240306"])
     assert rc == 0

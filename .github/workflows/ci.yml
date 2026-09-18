@@ -25,9 +25,10 @@ jobs:
       - name: End-to-end on synthetic data
         run: pytest tests/test_smoke.py -q
 
-  demo-regeneration:
-    # the committed sample report must match what the current code + generator
-    # actually produce (regenerate + diff, no upload)
+  sample-report-freshness:
+    # the committed sample report must match what the current generator + code
+    # actually produce: regenerate, strip run-varying bits (timestamps, image
+    # name prefixes), then diff against examples/demo/sample_report/
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,8 +37,28 @@ jobs:
           python-version: "3.12"
       - name: Install
         run: pip install -e .[charts] pytest
-      - name: Regenerate demo data and report
+      - name: Regenerate demo data and report, then diff
         run: |
           python examples/generate_demo_data.py /tmp/demo
           python -m resmed_sd_monitor --data-dir /tmp/demo --lang en --report
-          ls /tmp/demo/reports/
+          python - <<'PY'
+          import re, sys, pathlib
+
+          def normalize(text):
+              # strip run-varying bits from BOTH sides: wall-clock timestamps and
+              # the image-name prefixes cmd_report stamps
+              text = re.sub(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}', 'TIMESTAMP', text)
+              return re.sub(r'\d{8}_\d{6}_([a-z0-9_]+\.png)', r'\1', text)
+
+          rep = sorted(pathlib.Path('/tmp/demo/reports').glob('*_report.md'))[-1]
+          text = normalize(rep.read_text(encoding='utf-8'))
+          gold = normalize(pathlib.Path(
+              'examples/demo/sample_report/sample_report.md').read_text(encoding='utf-8'))
+          if text != gold:
+              import difflib
+              print('\n'.join(list(difflib.unified_diff(
+                  gold.splitlines(), text.splitlines(),
+                  'committed', 'regenerated', lineterm=''))[:120]))
+              sys.exit('sample report is stale — regenerate and commit it')
+          print('sample report matches regenerated output')
+          PY

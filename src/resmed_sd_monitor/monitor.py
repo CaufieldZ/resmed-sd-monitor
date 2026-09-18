@@ -425,8 +425,8 @@ def edf_start(path):
     None when corrupt."""
     try:
         b = open(path, 'rb').read(184)
-        d = b[168:176].decode('latin-1'); t = b[176:184].decode('latin-1')
-        return datetime.strptime(d + " " + t, "%d.%m.%y %H.%M.%S")
+        d = b[168:176].decode('latin-1'); t_time = b[176:184].decode('latin-1')
+        return datetime.strptime(d + " " + t_time, "%d.%m.%y %H.%M.%S")
     except Exception:
         return None
 
@@ -1963,6 +1963,12 @@ def segment_nights(rows, log):
     return segs
 
 
+def _seg_label(entry):
+    """Segment display name: `label` when present, else the `since` date
+    (matching _assign_segments' chart fallback and docs/tuning-log.md)."""
+    return entry.get('label') or entry.get('since') or '?'
+
+
 def _assign_segments(rows, log):
     """Per-night segment label (used for chart coloring)."""
     ls = sorted(log, key=lambda e: e["since"])
@@ -2198,6 +2204,13 @@ _EPRTYPE_KEYS = {0: 'epr_off', 1: 'epr_full', 2: 'epr_ramp'}
 _ONOFF_KEYS = {0: 'onoff_off', 1: 'onoff_on', 2: 'onoff_auto'}
 
 
+def _enum_text(mapping, value):
+    """Render a device enum through i18n; unknown values print raw (as the
+    original did) rather than being looked up as a bogus translation key."""
+    key = mapping.get(value)
+    return t(key) if key else str(value)
+
+
 def cmd_settings():
     """Parse the current device prescription from <data-dir>/STR.edf (STR is a
     non-standard EDF that read_edf cannot open; parsed by hand)."""
@@ -2230,7 +2243,7 @@ def cmd_settings():
 
     mode = raw('Mode', vday)
     print(t('settings_header', day=vday + 1, total=ndr))
-    print(t('settings_mode', v=t(_MODE_KEYS.get(mode, mode))))
+    print(t('settings_mode', v=_enum_text(_MODE_KEYS, mode)))
     if mode == 1:
         print(t('settings_range', lo=f"{press('S.AS.MinPress'):.1f}", hi=f"{press('S.AS.MaxPress'):.1f}"))
         print(t('settings_start', v=f"{press('S.AS.StartPress'):.1f}"))
@@ -2238,15 +2251,15 @@ def cmd_settings():
         print(t('settings_fixed', v=f"{press('S.C.Press'):.1f}"))
     epr_on = raw('S.EPR.EPREnable', vday)
     lvl = raw('S.EPR.Level', vday); g = pmax[idx['S.EPR.Level']]/dmax[idx['S.EPR.Level']]
-    print(t('settings_epr', onoff=t(_ONOFF_KEYS.get(epr_on, epr_on)), lvl=f"{lvl*g:.0f}",
-            eprtype=t(_EPRTYPE_KEYS.get(raw('S.EPR.EPRType', vday), ''))))
-    print(t('settings_ramp', onoff=t(_ONOFF_KEYS.get(raw('S.RampEnable', vday), raw('S.RampEnable', vday))),
+    print(t('settings_epr', onoff=_enum_text(_ONOFF_KEYS, epr_on), lvl=f"{lvl*g:.0f}",
+            eprtype=_enum_text(_EPRTYPE_KEYS, raw('S.EPR.EPRType', vday))))
+    print(t('settings_ramp', onoff=_enum_text(_ONOFF_KEYS, raw('S.RampEnable', vday)),
             n=raw('S.RampTime', vday)))
-    print(t('settings_smartstart', onoff=t(_ONOFF_KEYS.get(raw('S.SmartStart', vday), raw('S.SmartStart', vday)))))
-    print(t('settings_mask', v=t(_MASK_KEYS.get(raw('S.Mask', vday), raw('S.Mask', vday)))))
-    print(t('settings_humid', onoff=t(_ONOFF_KEYS.get(raw('S.HumEnable', vday), raw('S.HumEnable', vday))),
+    print(t('settings_smartstart', onoff=_enum_text(_ONOFF_KEYS, raw('S.SmartStart', vday))))
+    print(t('settings_mask', v=_enum_text(_MASK_KEYS, raw('S.Mask', vday))))
+    print(t('settings_humid', onoff=_enum_text(_ONOFF_KEYS, raw('S.HumEnable', vday)),
             lvl=raw('S.HumLevel', vday),
-            tube=t(_ONOFF_KEYS.get(raw('HeatedTube', vday), raw('HeatedTube', vday))),
+            tube=_enum_text(_ONOFF_KEYS, raw('HeatedTube', vday)),
             temp=f"{raw('S.Temp', vday)/10:.0f}"))
 
 
@@ -2278,7 +2291,7 @@ def cmd_report():
     current_dates = {r['date'] for r in segs[-1][1]} if segs else set()
     current_an = [r for r in an if r['date'] in current_dates]
     current_stats = seg_stats(current_an) if current_an else None
-    n_total = {e.get('label'): len(s) for e, s in segs}
+    n_total = {_seg_label(e): len(s) for e, s in segs}
     comparisons = [seg_verdict(segs_an[i - 1][1], segs_an[i][1], k)
                    for i in range(1, len(segs_an)) for k in ("ahi", "oai")]
     pr = pressure_response(current_an)
@@ -2343,7 +2356,7 @@ def cmd_report():
                        mask=(logobj or {}).get('mask', '')))
     if segs:
         e = segs[-1][0]
-        md.append(t('report_current_settings', label=e.get('label'), since=e.get('since'),
+        md.append(t('report_current_settings', label=_seg_label(e), since=e.get('since'),
                     pmin=e.get('min_press'), pmax=e.get('max_press'), epr=e.get('epr')))
 
     md.append('\n' + t('report_s1_title'))
@@ -2375,7 +2388,7 @@ def cmd_report():
             ss = (f"{e.get('min_press')}–{e.get('max_press')} EPR{e.get('epr')}"
                   if e.get("min_press") is not None else "—")
             a = st['ahi']; uai = _agg(segs_an[seg_idx][1], 'uai')
-            md.append(f"| {e.get('label','')} | {ss} | {st['n']}/{n_total.get(e.get('label'), st['n'])} | "
+            md.append(f"| {_seg_label(e)} | {ss} | {st['n']}/{n_total.get(_seg_label(e), st['n'])} | "
                       f"{_fmt(st['usage_h']['mean'])} | {_fmt(a['med'])}[{_fmt(a['iqr'])}] | "
                       f"{_fmt(st['oai']['med'])} | {_fmt(st['cai']['med'])} | {_fmt(uai['med'])} | "
                       f"{_fmt(st['press_95']['med'])} | {_fmt(st['flowlim_95']['med'],'{:.2f}')} |")

@@ -1,4 +1,4 @@
-# PAP Therapy Monitoring Report (clinical decision support)  2026-09-18 17:20
+# PAP Therapy Monitoring Report (clinical decision support)  2026-09-18 18:00
 > This report is based on ResMed flow/pressure-algorithm event estimates and therapy *usage* time — it is not PSG and does not constitute a diagnosis of sleep apnea, REM/positional OSA or TECSA. Have a sleep specialist review it together with symptoms, history, raw waveforms and, where needed, PSG / continuous oximetry.
 
 **Device** ResMed AirSense 10 AutoSet (synthetic demo) (nasal)
@@ -50,10 +50,10 @@ Based on device therapy records after quality gating; not a formal diagnosis of 
 - Per-breath flattening index median 0.076 (5 nights; a relative measure against each night's own baseline, never an absolute verdict).
 - Event clustering: 2 clusters across 5 nights (>=3 events with adjacent gaps <=2 min); the in-cluster share of all events has median 0%. Clustering is the classic cue for positional/REM-related OSA, but the device records neither position nor sleep stage — no attribution from this alone.
 - Periodic-breathing fit: 1/5 nights reach the threshold (corr²>=0.1); dominant period 46 s, of which short-period (<40 s): 0 nights. Periodic ventilatory instability needs manual waveform review — the device has no EEG/effort channels; Cheyne-Stokes or TECSA cannot be declared from this.
-- Pressure–flatness curve: therapy pressure range 11.0–13.5 cmH2O (5 bins, Ramp drive-by low bins excluded): FI median at 11.0 bin 0.085 → at 13.0 bin 0.074; weighted slope -0.0067/cmH2O.
+- Pressure–flatness curve: therapy pressure range 11.0–13.5 cmH2O (5 bins, Ramp drive-by low bins excluded): FI median at 11.0 bin 0.087 → at 13.0 bin 0.071; weighted slope -0.0087/cmH2O.
 - Limited breaths increase as pressure rises (negative slope): mostly reverse causation from APAP reactive pressurization (events trigger the rise; those breaths are still recovering) — never read as "pressure is harmful".
 - Pressure at obstructive events: median 12.4 cmH2O; share >=14 cmH2O: 5%, >=15 cmH2O: 0%.
-- Split by delivered pressure: low segment (<12.8 cmH2O, P90) 0.1 events per 100 breaths, high segment (>=12.8) 0.2 (23345 low / 1045 high breaths). ⚠ This ratio is **not** evidence of "whether pressure works": the device raises pressure after events (feedback check above), high-segment dwell is itself triggered by events — "more events in the high segment" is the echo of that feedback. It only shows the device does work up there.
+- Split by delivered pressure: low segment (<12.8 cmH2O, P90) 0.1 events per 100 breaths, high segment (>=12.8) 0.2 (23304 low / 1045 high breaths). ⚠ This ratio is **not** evidence of "whether pressure works": the device raises pressure after events (feedback check above), high-segment dwell is itself triggered by events — "more events in the high segment" is the echo of that feedback. It only shows the device does work up there.
 - Delivered pressure: median 11.2, P90 12.8, peak 14.8 cmH2O; 0.1% of inspiratory breaths dwell within 0.5 of the ceiling.
 - Peak touches the set ceiling 15.0 cmH2O but only for 0.1% of time (scattered transient touches, no sustained dwell) — occasional touching is not a limitation; raising the ceiling alone has small expected benefit.
 
@@ -77,7 +77,7 @@ Based on device therapy records after quality gating; not a formal diagnosis of 
 
 ## Charts
 ![residual_rei](residual_rei.png)
-![spo2](20260918_172023_spo2.png)
+![spo2](spo2.png)
 ![pressure_oai](pressure_oai.png)
 ![event_hours](event_hours.png)
 ![event_pressure](event_pressure.png)

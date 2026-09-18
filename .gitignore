@@ -7,9 +7,11 @@ dist/
 .ruff_cache/
 
 # User data — never commit SD-card dumps, tuning logs or generated reports.
-# The demo dataset under examples/demo/ is synthetic and intentionally committed.
+# The demo dataset is NOT committed: regenerate it with examples/generate_demo_data.py
+# (only examples/demo/sample_report/ is checked in).
 /data/
 */data/
+examples/demo/data/
 DATALOG/
 SETTINGS/
 STR.edf

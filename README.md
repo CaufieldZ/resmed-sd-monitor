@@ -106,7 +106,7 @@ optional — without them reports still generate, minus images.
 ```bash
 pip install -e .            # core
 pip install -e .[charts]    # + matplotlib
-pip install -e .[dev]       # + pytest, for running the test suite (105 tests)
+pip install -e .[dev]       # + pytest, for running the test suite (106 tests)
 ```
 
 Works offline, fully local. Nothing leaves your machine.
