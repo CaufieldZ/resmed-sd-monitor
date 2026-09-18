@@ -1,23 +1,25 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]   # >=77 for the SPDX `license` field
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "resmed-sd-monitor"
 version = "0.1.0"
-description = "PAP therapy monitoring and clinical decision support from ResMed SD-card EDF data — segmented efficacy, breath-by-breath flow-wave analysis, pressure-flatness curves"
+description = "Analyse ResMed CPAP/APAP SD-card EDF data: segmented efficacy statistics, breath-by-breath flow-waveform analysis, pressure-headroom curves"
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{ name = "Felix Zhi" }]
 keywords = [
-    "cpap", "apap", "pap", "resmed", "airsense",
-    "sleep-apnea", "edf", "sd-card", "ahi", "tecsa",
+    "cpap", "apap", "pap", "resmed", "airsense", "airsense-10", "airsense-11",
+    "aircurve", "sleep-apnea", "apnea", "osa", "edf", "sd-card", "ahi", "tecsa",
+    "oscar", "sleepyhead", "cpap-data", "polysomnography", "sleep-tracking",
+    "oximetry", "titration",
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Healthcare Industry",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
@@ -26,6 +28,7 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Topic :: Scientific/Engineering :: Medical Science Apps.",
 ]
+
 # numpy>=2.0: uses np.trapezoid
 dependencies = [
     "numpy>=2.0",
@@ -36,6 +39,14 @@ dependencies = [
 [project.optional-dependencies]
 charts = ["matplotlib>=3.7"]
 dev = ["pytest>=7", "matplotlib>=3.7"]
+
+[project.urls]
+Homepage = "https://github.com/CaufieldZ/resmed-sd-monitor"
+Documentation = "https://github.com/CaufieldZ/resmed-sd-monitor#readme"
+"Interpretation guide" = "https://github.com/CaufieldZ/resmed-sd-monitor/blob/main/docs/interpretation-guide.md"
+"Sample report" = "https://github.com/CaufieldZ/resmed-sd-monitor/blob/main/examples/demo/sample_report/sample_report.md"
+Source = "https://github.com/CaufieldZ/resmed-sd-monitor"
+Issues = "https://github.com/CaufieldZ/resmed-sd-monitor/issues"
 
 [project.scripts]
 resmed-sd-monitor = "resmed_sd_monitor.monitor:main"

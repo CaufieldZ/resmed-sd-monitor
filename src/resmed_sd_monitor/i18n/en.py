@@ -22,11 +22,11 @@ STRINGS = {
     'pr_ratio_tail': '; exposure-corrected high/other event-rate ratio {rr}',
     'pr_cooccurrence_why': ('{pct}% of {n} clearly-labelled obstructive events occurred above the '
                             "night's P90 (that pressure band occupies {exposure}% of the therapy "
-                            'record){ratio}. APAP raises pressure reactively after events — dwelling '
-                            'in the high band is naturally triggered by events; a high event rate is '
-                            'the echo of that feedback, not "pressure is ineffective". Without '
-                            'position, sleep staging and manual waveform review, positional/REM '
-                            'relevance or complexity cannot be judged either.'),
+                            'record){ratio}. Because APAP raises pressure after events, dwelling in '
+                            'the high band is itself event-triggered, so a high event rate there is '
+                            'the echo of that feedback and is not evidence that pressure is '
+                            'ineffective. Positional or REM relevance cannot be judged either, for '
+                            'want of position, sleep staging and manual waveform review.'),
 
     # ── timing_verdict ────────────────────────────────────────────────────
     'timing_late_heavy': ('more events in the later therapy record; review together with symptoms, '
@@ -37,40 +37,41 @@ STRINGS = {
 
     # ── wave_verdict ──────────────────────────────────────────────────────
     'wv_fi_summary': ('Per-breath flattening index median {med} ({n} nights; a relative measure '
-                      "against each night's own baseline, never an absolute verdict)."),
+                      "against each night's own baseline, not an absolute verdict)."),
     'wv_cluster': ('Event clustering: {clusters} clusters across {nights} nights (>={min_ev} events '
                    'with adjacent gaps <={gap_min} min); the in-cluster share of all events has '
                    'median {pct}%. Clustering is the classic cue for positional/REM-related OSA, '
-                   'but the device records neither position nor sleep stage — no attribution from '
-                   'this alone.'),
+                   'but the device records neither position nor sleep stage, so this alone supports '
+                   'no attribution.'),
     'wv_period_none': 'Periodic-breathing fit: {n} nights below threshold',
     'wv_period_weak_tail': ' ({n} with weak signal)',
     'wv_period_none_tail': '; no periodic ventilatory instability at the waveform layer.',
     'wv_period_flagged': ('Periodic-breathing fit: {flagged}/{total} nights reach the threshold '
                           '(corr²>={corr2}); dominant period {period} s, of which short-period '
                           '(<40 s): {n_short} nights. Periodic ventilatory instability needs manual '
-                          'waveform review — the device has no EEG/effort channels; Cheyne-Stokes or '
-                          'TECSA cannot be declared from this.'),
+                          'waveform review. The device has no EEG/effort channels, so Cheyne-Stokes '
+                          'or TECSA cannot be declared from this.'),
     'wv_curve_base': ('Pressure–flatness curve: therapy pressure range {t_lo}–{t_hi} cmH2O '
                       '({n_bins} bins, Ramp drive-by low bins excluded): FI median at {lo_p} bin '
                       '{lo_fi} → at {hi_p} bin {hi_fi}; weighted slope {slope}/cmH2O.'),
     'wv_gain_txt': 'lowest three bins → highest three bins (spanning {span} cmH2O) differ in FI median by only {gain}',
-    'wv_curve_negative': ('Limited breaths increase as pressure rises (negative slope): mostly reverse '
-                          'causation from APAP reactive pressurization (events trigger the rise; those '
-                          'breaths are still recovering) — never read as "pressure is harmful".'),
-    'wv_curve_gain_flat': ('{gain_txt} — almost no gainable improvement from lowest to highest '
-                           'pressure. Background limitation has flattened within this range; further '
-                           'pressure (floor or ceiling) has limited expected benefit.'),
+    'wv_curve_negative': ('Limited breaths increase as pressure rises (negative slope). This is mostly '
+                          'reverse causation from APAP reactive pressurization: events trigger the '
+                          'rise, and those breaths are still recovering. It does not mean pressure is '
+                          'harmful.'),
+    'wv_curve_gain_flat': ('{gain_txt}. Almost no gainable improvement from lowest to highest '
+                           'pressure: background limitation has flattened within this range, so '
+                           'further pressure (floor or ceiling) has limited expected benefit.'),
     'wv_curve_ushape': ('{gain_txt}. The curve is **U-shaped**: minimum near {p_min} cmH2O, rising '
                         'again with pressure afterwards (top bin {rise} above the minimum). The '
-                        'high-segment recovery is the device\'s **reactive** pressurization to flow '
-                        'limitation (an echo) — not "pressure is harmful"; and that it climbs all the '
-                        'way to the range top is exactly the "still wants more pressure but is blocked '
-                        'by the ceiling" shape — the same fact as "the pressure–flatness curve has not '
-                        'finished rising in this segment".'),
-    'wv_curve_plateau': ('{gain_txt}; but the improvement concentrates in the low segment — middle and '
+                        'high-segment recovery is the device pressurizing reactively against flow '
+                        'limitation, an echo rather than a sign that pressure is harmful. Climbing '
+                        'all the way to the top of the range is the signature of a segment that '
+                        'still wants more pressure but is held by the ceiling, which is the same '
+                        'fact as the pressure–flatness curve not having finished rising here.'),
+    'wv_curve_plateau': ('{gain_txt}, but the improvement concentrates in the low segment; middle and '
                          'above have flattened (within-middle rise {tail_gain}). The current pressure '
-                         'range has basically exhausted the gain; further pressure has diminishing '
+                         'range has basically exhausted the gain, and further pressure has diminishing '
                          'returns.'),
     'wv_curve_responsive': ('{gain_txt}: background flow limitation keeps decreasing as pressure rises; '
                             'the airway responds to pressure in this range. Note this measures '
@@ -82,21 +83,19 @@ STRINGS = {
     # ── pressure_exposure_verdict ─────────────────────────────────────────
     'pev_split': ('Split by delivered pressure: low segment (<{p90} cmH2O, P90) {lo_rate} events per '
                   '100 breaths, high segment (>={p90}) {hi_rate} ({lo_br} low / {hi_br} high breaths). '
-                  '⚠ This ratio is **not** evidence of "whether pressure works": the device raises '
-                  'pressure after events (feedback check above), high-segment dwell is itself '
-                  'triggered by events — "more events in the high segment" is the echo of that '
-                  'feedback. It only shows the device does work up there.'),
+                  '⚠ Per the feedback check above, this ratio is **not** evidence of whether pressure '
+                  'works; it only shows the device does work up there.'),
     'pev_delivered': ('Delivered pressure: median {med}, P90 {p90}, peak {mx} cmH2O; {frac}% of '
                       'inspiratory breaths dwell within 0.5 of the ceiling.'),
-    'pev_not_binding': ('Device-set ceiling {set_max} cmH2O was never exceeded (actual peak {press_max}) '
-                        '— within this therapy the ceiling is not the limiting factor; raising it '
+    'pev_not_binding': ('Device-set ceiling {set_max} cmH2O was never exceeded (actual peak {press_max}). '
+                        'Within this therapy the ceiling is not the limiting factor: raising it '
                         'changes no delivered pressure. What changes outcomes is the floor (min) or '
                         'the mode/mechanism direction.'),
-    'pev_binding': ('Peak reaches the set ceiling {set_max} cmH2O and {frac}% of time dwells near it '
-                    '— the ceiling is genuinely limiting therapy; raising it is an evidence-backed step.'),
+    'pev_binding': ('Peak reaches the set ceiling {set_max} cmH2O and {frac}% of time dwells near it. '
+                    'The ceiling is genuinely limiting therapy, and raising it is an evidence-backed step.'),
     'pev_touch_only': ('Peak touches the set ceiling {set_max} cmH2O but only for {frac}% of time '
-                       '(scattered transient touches, no sustained dwell) — occasional touching is '
-                       'not a limitation; raising the ceiling alone has small expected benefit.'),
+                       '(scattered transient touches, no sustained dwell). Occasional touching is '
+                       'not a limitation, so raising the ceiling alone has small expected benefit.'),
 
     # ── event-type / chart labels ─────────────────────────────────────────
     'ev_oa': 'obstructive', 'ev_ca': 'central', 'ev_hyp': 'hypopnea', 'ev_ua': 'unclassified apnea',
@@ -130,14 +129,14 @@ STRINGS = {
     'chart_wp_fi_title': 'Per-breath inspiratory flattening index (low = plateau-like waveform = flow limitation)',
     'chart_pf_title': 'Pressure vs inspiratory flatness ({n} breaths)',
     'chart_pf_slope': 'weighted slope {slope}/cmH2O',
-    'chart_pf_bias_note': ' (under APAP, pressure is raised reactively to events — not a dose–response experiment)',
+    'chart_pf_bias_note': ' (under APAP, pressure is raised reactively to events, so this is not a dose–response experiment)',
     'chart_ct_title': ('Event time distribution (red = in-cluster; ○ obstructive △ central '
                        '□ hypopnea × unclassified)\nX axis clipped to the event body; late-night '
-                       'weighting must be read together with sleep onset/offset — the device has no '
-                       'sleep staging'),
+                       'weighting must be read together with sleep onset/offset, as the device has '
+                       'no sleep staging'),
     'chart_at_title': 'Residual events during PAP therapy (not PSG-AHI)',
     'chart_po_title': 'Pressure P95 vs obstructive index OAI',
-    'chart_po_subtitle': '(under APAP pressure rises with events; positive correlation does not mean pressure causes events — reference only)',
+    'chart_po_subtitle': '(under APAP pressure rises with events, so a positive correlation does not mean pressure causes events; reference only)',
     'chart_eh_title': 'Therapy-time distribution of device residual events (no sleep staging/position)',
     'chart_ph_title': 'Cumulative dwell time per pressure bin (current settings)',
     'chart_st_title': 'Nightly minimum SpO2 trend (by tuning segment)',
@@ -154,29 +153,29 @@ STRINGS = {
                        '{cl:>6}{clpct:>6}%{per:>7}{c2:>7}{sigh:>7}'),
     'wave_row_skip': '{date:<10}{dash:>6}  (BRP flow insufficient, waveform layer skipped)',
     'wave_verdict_header': '--- Reading points ---',
-    'wave_feedback': ('· Feedback check (read this first — every "pressure<->event" ratio below is '
+    'wave_feedback': ('· Feedback check (read this first; every "pressure<->event" ratio below is '
                       'bounded by it): within 120 s after {n} events, pressure changed by median '
                       '{med} cmH2O, {rise}% rose / {fall}% fell; random-time controls '
                       '{ctrl_med}/{ctrl_rise}%. '),
-    'wave_feedback_confirmed': ('The device does pressurize reactively to events — event-rate ratios '
-                                'are echoes, not evidence against pressure.'),
+    'wave_feedback_confirmed': ('The device does pressurize reactively to events, so event-rate ratios '
+                                'are echoes rather than evidence against pressure.'),
     'wave_feedback_not_confirmed': 'No clear post-event pressurization; event-rate ratios may serve as weaker circumstantial evidence.',
     'wave_merge_climbing': ('· Merge: the curve\'s bottom sits at mid-range pressure and the right end '
-                            'still climbs (cross-segment difference {gain}) — more pressure is '
-                            'gainable and the low segment is near the optimum; **raising the floor is '
-                            'useless, raise the ceiling**.'),
+                            'still climbs (cross-segment difference {gain}). More pressure is '
+                            'gainable and the low segment is near the optimum, so **raise the ceiling '
+                            'rather than the floor**.'),
     'wave_merge_tail_binding': ' and the device has long dwelt near the ceiling (the ceiling is limiting therapy)',
     'wave_merge_tail_not_binding': ' but the peak has not reached the ceiling',
     'wave_merge_disclaimer': ' Residual event rates are contaminated by APAP reactive pressurization and take no part in this judgment.',
     'wave_merge_flat': ('· Merge: the only clean evidence is the pressure–flatness curve, and it shows '
-                        'almost no improvement in background limitation from low to high — the current '
+                        'almost no improvement in background limitation from low to high. The current '
                         'range has already pressed the limitation floor into place. Residual events in '
                         'the high segment are more likely brief positional/REM-related collapses: the '
-                        'next step is position and timing, not a higher ceiling. (Event-rate ratios '
+                        'next step is position and timing rather than a higher ceiling. (Event-rate ratios '
                         'are not evidence here; see the feedback check.)'),
     'wave_merge_responsive': ('· Merge: background limitation improves monotonically with pressure '
-                              '(cross-segment difference {gain}); the low segment still has headroom — '
-                              'raising the floor pressure is worth trying, re-evaluate in 1–2 weeks. '
+                              '(cross-segment difference {gain}); the low segment still has headroom, so '
+                              'raising the floor pressure is worth trying, with a re-evaluation in 1–2 weeks. '
                               'Residual event rates are themselves contaminated by APAP reactive '
                               'pressurization and take no part in this judgment.'),
 
@@ -225,7 +224,7 @@ STRINGS = {
     'msg_night_chart_fail': '[warn] night chart failed: {err}',
 
     # ── cmd_settings ──────────────────────────────────────────────────────
-    'settings_no_file': 'No {path} — copy STR.edf from the SD card into the data directory first',
+    'settings_no_file': 'No {path}: copy STR.edf from the SD card into the data directory first',
     'settings_header': '=== Device prescription (STR.edf day {day}/{total}) ===',
     'settings_mode': 'Mode             {v}',
     'settings_range': 'Pressure range   {lo} – {hi} cmH2O',
@@ -246,13 +245,13 @@ STRINGS = {
     'seg_all_label': 'All',
     'report_title': '# PAP Therapy Monitoring Report (clinical decision support)  {ts}',
     'report_disclaimer': ('> This report is based on ResMed flow/pressure-algorithm event estimates and '
-                          'therapy *usage* time — it is not PSG and does not constitute a diagnosis of '
+                          'therapy *usage* time. It is not PSG and does not constitute a diagnosis of '
                           'sleep apnea, REM/positional OSA or TECSA. Have a sleep specialist review it '
                           'together with symptoms, history, raw waveforms and, where needed, PSG / '
                           'continuous oximetry.'),
     'report_device': '**Device** {device} ({mask})',
     'report_current_settings': ('**Recorded current settings** ({label}, since {since}): pressure '
-                                '{pmin}–{pmax} cmH2O, EPR {epr} (recorded only — not a prescription '
+                                '{pmin}–{pmax} cmH2O, EPR {epr} (recorded only, not a prescription '
                                 'suggestion from this tool)'),
     'report_s1_title': '\n## 1. Data quality and scope of validity',
     'report_s1_coverage': ('- Covers {n} therapy dates ({d0}–{d1}); {an} nights enter trend analysis '
@@ -277,26 +276,26 @@ STRINGS = {
     'report_s4_meds': '- Pressure at clearly-labelled obstructive events: median {ev} cmH2O; therapy pressure median {th} cmH2O.',
     'report_s4_aligned': '- {n} aligned obstructive events, {m} above the night\'s P90 ({pct}%); high-pressure (>=P90) exposure occupies {e}% of the record.',
     'report_s4_ratio': ('- High-segment/other event-rate ratio {rr} (exposure-corrected by pressure '
-                        'sample). **This ratio must not be read as "more pressure does not help"**: '
-                        'APAP raises pressure after events; high-segment dwell is itself event-triggered '
-                        '(feedback check in section 4b) — the co-occurrence is an echo, not causation.'),
-    'report_s4_spearman': '- Cross-night Spearman ρ(pressure P95, OAI)={rho} (n={n}); APAP has the reverse causality of post-event pressurization — no causal reading.',
+                        'sample). **This ratio must not be read as "more pressure does not help"**; '
+                        'see the verdict below and the section 4b feedback check.'),
+    'report_s4_spearman': '- Cross-night Spearman ρ(pressure P95, OAI)={rho} (n={n}); post-event pressurization reverses the causal direction here, so no causal reading.',
     'report_s4_verdict': '- **{v}**: {why}',
     'report_s4_timing': '- Distribution within the therapy record ({n} events): first {t1}% / middle {t2}% / last {t3}%; {v}',
     'report_s4b_title': '\n## 4b. Flow waveform layer (per-breath, last {n} nights)',
     'report_s4b_preamble': ('> Breathing is rebuilt breath-by-breath from BRP 25 Hz flow (inspiratory-peak '
                             'detection + inspiratory flattening index). The FI is a relative measure '
                             "against each night's own baseline, not a literature absolute; device flow "
-                            'is not PSG nasal pressure — no EEG arousals, no position, no thoracoabdominal '
+                            'is not PSG nasal pressure: no EEG arousals, no position, no thoracoabdominal '
                             'effort. Every item below is a relative device-trend cue.'),
     'report_s4b_feedback': ('- Feedback check: within 120 s after {n} events, pressure changed by median '
                             '{med} cmH2O ({rise}% rose above 0.5, {fall}% fell below -0.5); across '
                             '{ctrl_n} random-time controls, median {ctrl_med}, {ctrl_rise}% rose. The '
                             'device does pressurize reactively to events, so any "high pressure <-> many '
-                            'events" co-occurrence is that feedback\'s echo — not "pressure is ineffective".'),
+                            'events" co-occurrence is that feedback echoing back. It is not evidence '
+                            'that pressure is ineffective.'),
     'report_s4b_skip': 'Not enough BRP flow data for per-breath reconstruction; section skipped.',
     'report_s5_title': '\n## 5. Ventilation, flow limitation and oxygenation (monitoring metrics)',
-    'report_s5_flowlim': '- FlowLim95 {fl}, snore P95 {snore}; useful for trend review on the same device/settings — alone they cannot diagnose airway collapse.',
+    'report_s5_flowlim': '- FlowLim95 {fl}, snore P95 {snore}; useful for trend review on the same device/settings, though alone they cannot diagnose airway collapse.',
     'report_s5_vent': '- Resp rate median {rr} /min · tidal volume median {tv} L · minute ventilation median {mv} L/min. Device estimates are affected by leak and wakefulness.',
     'report_s5_spo2': '- Nightly minimum SpO2 median {v}% (mean {avg}%){src}. Continuous SAD feeds the section-2 hypoxia screen; nights without sufficient SAD coverage are excluded rather than estimated.',
     'report_s5_src': ' (sources: {src})',
@@ -305,7 +304,7 @@ STRINGS = {
     'report_s6_header_nospo2': '| Date | Record h | Device REI | OAI | CAI | UAI | Press P95 | Leak95 |',
     'report_charts_title': '## Charts',
     'report_handoff_title': '## Handoff notes',
-    'report_handoff_emergency': '- For emergency symptoms — chest pain, marked breathlessness, altered consciousness, hypoxia while awake — seek emergency care; this report is not an emergency-triage instrument.',
+    'report_handoff_emergency': '- For emergency symptoms (chest pain, marked breathlessness, altered consciousness, hypoxia while awake), seek emergency care. This report is not an emergency-triage instrument.',
     'report_handoff_medical': '- Parameter changes are medical decisions. Hand this report, symptom changes, medications/comorbidities and the raw SD-card data to the sleep specialist or prescribing team for review.',
 
     # ── cmd_pressure ──────────────────────────────────────────────────────
@@ -315,7 +314,7 @@ STRINGS = {
     'pressure_meds': 'Median pressure at obstructive events   {ev} cmH2O   (therapy pressure median {th})',
     'pressure_above90': "Share of obstructive events above each night's pressure P90   {pct}%",
     'pressure_spearman': 'Cross-night correlation Spearman ρ(Pressure P95, OAI) = {rho}  (n={n})',
-    'pressure_spearman_note': '  Note: APAP pressure rises with events; positive correlation does not mean pressure causes events — reference only',
+    'pressure_spearman_note': '  Note: APAP pressure rises with events, so a positive correlation does not mean pressure causes events; reference only',
     'pressure_exposure': 'High-pressure-segment therapy exposure   {pct}%',
     'pressure_ratio': 'High/other event-rate ratio        {v}',
     'pressure_verdict': 'Screening conclusion: {v}',
@@ -338,7 +337,7 @@ STRINGS = {
     'detail_not_analyzable': '  [not analyzable]',
     'detail_pressure': 'Pressure median {med} / P95 {p95} / peak {mx} cmH2O',
     'detail_oa_press': 'Pressure at obstructive events: median {med}  above-P90 share {pct}',
-    'detail_oa_press_none': 'Pressure at obstructive events —',
+    'detail_oa_press_none': 'Pressure at obstructive events: none',
     'detail_flowlim': 'Flow limitation median {fl_med} / P95 {fl95}   snore P95 {snore95}',
     'detail_vent': 'Resp rate {rr} /min  tidal volume {tv} L  minute ventilation {mv} L/min',
     'detail_leak': 'Leak median {med} / P95 {p95} L/min',

@@ -1,8 +1,8 @@
-# PAP Therapy Monitoring Report (clinical decision support)  2026-09-18 18:00
-> This report is based on ResMed flow/pressure-algorithm event estimates and therapy *usage* time — it is not PSG and does not constitute a diagnosis of sleep apnea, REM/positional OSA or TECSA. Have a sleep specialist review it together with symptoms, history, raw waveforms and, where needed, PSG / continuous oximetry.
+# PAP Therapy Monitoring Report (clinical decision support)  2026-09-18 23:29
+> This report is based on ResMed flow/pressure-algorithm event estimates and therapy *usage* time. It is not PSG and does not constitute a diagnosis of sleep apnea, REM/positional OSA or TECSA. Have a sleep specialist review it together with symptoms, history, raw waveforms and, where needed, PSG / continuous oximetry.
 
 **Device** ResMed AirSense 10 AutoSet (synthetic demo) (nasal)
-**Recorded current settings** (floor 10-15 EPR1, since 20240305): pressure 10–15 cmH2O, EPR 1 (recorded only — not a prescription suggestion from this tool)
+**Recorded current settings** (floor 10-15 EPR1, since 20240305): pressure 10–15 cmH2O, EPR 1 (recorded only, not a prescription suggestion from this tool)
 
 
 ## 1. Data quality and scope of validity
@@ -38,28 +38,28 @@ Based on device therapy records after quality gating; not a formal diagnosis of 
 ## 4. Event–pressure association (descriptive; no pressure conclusions generated)
 - Pressure at clearly-labelled obstructive events: median 12.2 cmH2O; therapy pressure median 12.1 cmH2O.
 - 20 aligned obstructive events, 4 above the night's P90 (20%); high-pressure (>=P90) exposure occupies 10% of the record.
-- High-segment/other event-rate ratio 2.25 (exposure-corrected by pressure sample). **This ratio must not be read as "more pressure does not help"**: APAP raises pressure after events; high-segment dwell is itself event-triggered (feedback check in section 4b) — the co-occurrence is an echo, not causation.
-- Cross-night Spearman ρ(pressure P95, OAI)=+1.00 (n=5); APAP has the reverse causality of post-event pressurization — no causal reading.
-- **event-pressure co-occurrence only; no cause can be inferred**: 20% of 20 clearly-labelled obstructive events occurred above the night's P90 (that pressure band occupies 10% of the therapy record); exposure-corrected high/other event-rate ratio 2.25. APAP raises pressure reactively after events — dwelling in the high band is naturally triggered by events; a high event rate is the echo of that feedback, not "pressure is ineffective". Without position, sleep staging and manual waveform review, positional/REM relevance or complexity cannot be judged either.
+- High-segment/other event-rate ratio 2.25 (exposure-corrected by pressure sample). **This ratio must not be read as "more pressure does not help"**; see the verdict below and the section 4b feedback check.
+- Cross-night Spearman ρ(pressure P95, OAI)=+1.00 (n=5); post-event pressurization reverses the causal direction here, so no causal reading.
+- **event-pressure co-occurrence only; no cause can be inferred**: 20% of 20 clearly-labelled obstructive events occurred above the night's P90 (that pressure band occupies 10% of the therapy record); exposure-corrected high/other event-rate ratio 2.25. Because APAP raises pressure after events, dwelling in the high band is itself event-triggered, so a high event rate there is the echo of that feedback and is not evidence that pressure is ineffective. Positional or REM relevance cannot be judged either, for want of position, sleep staging and manual waveform review.
 - Distribution within the therapy record (36 events): first 39% / middle 47% / last 14%; uneven distribution within the therapy record; without position and sleep staging, no attribution
 
 
 ## 4b. Flow waveform layer (per-breath, last 5 nights)
-> Breathing is rebuilt breath-by-breath from BRP 25 Hz flow (inspiratory-peak detection + inspiratory flattening index). The FI is a relative measure against each night's own baseline, not a literature absolute; device flow is not PSG nasal pressure — no EEG arousals, no position, no thoracoabdominal effort. Every item below is a relative device-trend cue.
-- Feedback check: within 120 s after 36 events, pressure changed by median +0.67 cmH2O (56% rose above 0.5, 0% fell below -0.5); across 150 random-time controls, median +0.03, 3% rose. The device does pressurize reactively to events, so any "high pressure <-> many events" co-occurrence is that feedback's echo — not "pressure is ineffective".
-- Per-breath flattening index median 0.076 (5 nights; a relative measure against each night's own baseline, never an absolute verdict).
-- Event clustering: 2 clusters across 5 nights (>=3 events with adjacent gaps <=2 min); the in-cluster share of all events has median 0%. Clustering is the classic cue for positional/REM-related OSA, but the device records neither position nor sleep stage — no attribution from this alone.
-- Periodic-breathing fit: 1/5 nights reach the threshold (corr²>=0.1); dominant period 46 s, of which short-period (<40 s): 0 nights. Periodic ventilatory instability needs manual waveform review — the device has no EEG/effort channels; Cheyne-Stokes or TECSA cannot be declared from this.
+> Breathing is rebuilt breath-by-breath from BRP 25 Hz flow (inspiratory-peak detection + inspiratory flattening index). The FI is a relative measure against each night's own baseline, not a literature absolute; device flow is not PSG nasal pressure: no EEG arousals, no position, no thoracoabdominal effort. Every item below is a relative device-trend cue.
+- Feedback check: within 120 s after 36 events, pressure changed by median +0.67 cmH2O (56% rose above 0.5, 0% fell below -0.5); across 150 random-time controls, median +0.03, 3% rose. The device does pressurize reactively to events, so any "high pressure <-> many events" co-occurrence is that feedback echoing back. It is not evidence that pressure is ineffective.
+- Per-breath flattening index median 0.076 (5 nights; a relative measure against each night's own baseline, not an absolute verdict).
+- Event clustering: 2 clusters across 5 nights (>=3 events with adjacent gaps <=2 min); the in-cluster share of all events has median 0%. Clustering is the classic cue for positional/REM-related OSA, but the device records neither position nor sleep stage, so this alone supports no attribution.
+- Periodic-breathing fit: 1/5 nights reach the threshold (corr²>=0.1); dominant period 46 s, of which short-period (<40 s): 0 nights. Periodic ventilatory instability needs manual waveform review. The device has no EEG/effort channels, so Cheyne-Stokes or TECSA cannot be declared from this.
 - Pressure–flatness curve: therapy pressure range 11.0–13.5 cmH2O (5 bins, Ramp drive-by low bins excluded): FI median at 11.0 bin 0.087 → at 13.0 bin 0.071; weighted slope -0.0087/cmH2O.
-- Limited breaths increase as pressure rises (negative slope): mostly reverse causation from APAP reactive pressurization (events trigger the rise; those breaths are still recovering) — never read as "pressure is harmful".
+- Limited breaths increase as pressure rises (negative slope). This is mostly reverse causation from APAP reactive pressurization: events trigger the rise, and those breaths are still recovering. It does not mean pressure is harmful.
 - Pressure at obstructive events: median 12.4 cmH2O; share >=14 cmH2O: 5%, >=15 cmH2O: 0%.
-- Split by delivered pressure: low segment (<12.8 cmH2O, P90) 0.1 events per 100 breaths, high segment (>=12.8) 0.2 (23304 low / 1045 high breaths). ⚠ This ratio is **not** evidence of "whether pressure works": the device raises pressure after events (feedback check above), high-segment dwell is itself triggered by events — "more events in the high segment" is the echo of that feedback. It only shows the device does work up there.
+- Split by delivered pressure: low segment (<12.8 cmH2O, P90) 0.1 events per 100 breaths, high segment (>=12.8) 0.2 (23304 low / 1045 high breaths). ⚠ Per the feedback check above, this ratio is **not** evidence of whether pressure works; it only shows the device does work up there.
 - Delivered pressure: median 11.2, P90 12.8, peak 14.8 cmH2O; 0.1% of inspiratory breaths dwell within 0.5 of the ceiling.
-- Peak touches the set ceiling 15.0 cmH2O but only for 0.1% of time (scattered transient touches, no sustained dwell) — occasional touching is not a limitation; raising the ceiling alone has small expected benefit.
+- Peak touches the set ceiling 15.0 cmH2O but only for 0.1% of time (scattered transient touches, no sustained dwell). Occasional touching is not a limitation, so raising the ceiling alone has small expected benefit.
 
 
 ## 5. Ventilation, flow limitation and oxygenation (monitoring metrics)
-- FlowLim95 0.13, snore P95 0.03; useful for trend review on the same device/settings — alone they cannot diagnose airway collapse.
+- FlowLim95 0.13, snore P95 0.03; useful for trend review on the same device/settings, though alone they cannot diagnose airway collapse.
 - Resp rate median 13.2 /min · tidal volume median 0.46 L · minute ventilation median 6.0 L/min. Device estimates are affected by leak and wakefulness.
 - Nightly minimum SpO2 median 89.4% (mean 95.9%) (sources: SAD). Continuous SAD feeds the section-2 hypoxia screen; nights without sufficient SAD coverage are excluded rather than estimated.
 
@@ -76,15 +76,15 @@ Based on device therapy records after quality gating; not a formal diagnosis of 
 | 20240310 | 6.8 | 1.0 | 0.9 | 0.0 | 0.0 | 13.1 | 8.99 | 89.4 |
 
 ## Charts
-![residual_rei](residual_rei.png)
-![spo2](spo2.png)
-![pressure_oai](pressure_oai.png)
-![event_hours](event_hours.png)
-![event_pressure](event_pressure.png)
-![pressure_hist](pressure_hist.png)
-![pressure_fi](pressure_fi.png)
-![cluster_timeline](cluster_timeline.png)
+![residual_rei](20260918_232922_residual_rei.png)
+![spo2](20260918_232922_spo2.png)
+![pressure_oai](20260918_232922_pressure_oai.png)
+![event_hours](20260918_232922_event_hours.png)
+![event_pressure](20260918_232922_event_pressure.png)
+![pressure_hist](20260918_232922_pressure_hist.png)
+![pressure_fi](20260918_232922_pressure_fi.png)
+![cluster_timeline](20260918_232922_cluster_timeline.png)
 
 ## Handoff notes
-- For emergency symptoms — chest pain, marked breathlessness, altered consciousness, hypoxia while awake — seek emergency care; this report is not an emergency-triage instrument.
+- For emergency symptoms (chest pain, marked breathlessness, altered consciousness, hypoxia while awake), seek emergency care. This report is not an emergency-triage instrument.
 - Parameter changes are medical decisions. Hand this report, symptom changes, medications/comorbidities and the raw SD-card data to the sleep specialist or prescribing team for review.
