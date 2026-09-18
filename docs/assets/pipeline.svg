@@ -72,9 +72,9 @@
   <text class="t2" x="715" y="324" text-anchor="middle">inspiratory flattening index · event clusters</text>
   <text class="t2" x="715" y="341" text-anchor="middle">periodic-breathing fit (from 25 Hz flow)</text>
 
-  <path class="fl" d="M265 354 V 374 H 470" />
-  <path class="fl" d="M715 354 V 374 H 510" />
-  <path class="fl" d="M490 374 V 392" marker-end="url(#ah)"/>
+  <path class="fl" d="M265 354 V 376 H 490" />
+  <path class="fl" d="M715 354 V 376 H 490" />
+  <path class="fl" d="M490 376 V 392" marker-end="url(#ah)"/>
 
   <!-- 5. verdict -->
   <rect class="b" x="150" y="394" width="680" height="72" rx="9"/>
