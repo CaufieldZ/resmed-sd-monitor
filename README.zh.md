@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/banner.png" alt="ResMed SD 卡数据分析" width="880">
+<img src="docs/assets/banner.jpg" alt="ResMed SD 卡数据分析" width="880">
 
 # resmed-sd-monitor
 
@@ -157,7 +157,6 @@ src/resmed_sd_monitor/
   i18n/           en / zh / ja 字符串表（含一致性测试）
 examples/
   generate_demo_data.py   确定性合成数据生成器
-  make_banner.py          用一晚 demo 数据渲染 docs/assets/banner.png
   demo/sample_report/     已提交的样张输出（CI 校验其新鲜度）
 docs/             判读指南 · 数据格式 · 调参日志 · 翻译指南
 ```

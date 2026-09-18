@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/banner.png" alt="ResMed SD カードデータ分析" width="880">
+<img src="docs/assets/banner.jpg" alt="ResMed SD カードデータ分析" width="880">
 
 # resmed-sd-monitor
 
@@ -179,7 +179,6 @@ src/resmed_sd_monitor/
   i18n/           en / zh / ja 文字列テーブル（整合性テスト付き）
 examples/
   generate_demo_data.py   決定論的合成データ生成器
-  make_banner.py          デモ 1 晩から docs/assets/banner.png を描画
   demo/sample_report/     コミット済みサンプル出力（CI が鮮度を検証）
 docs/             判読ガイド · データ形式 · チューニングログ · 翻訳ガイド
 ```

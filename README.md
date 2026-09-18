@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/banner.png" alt="ResMed SD-card data analysis" width="880">
+<img src="docs/assets/banner.jpg" alt="ResMed SD-card data analysis" width="880">
 
 # resmed-sd-monitor
 
@@ -185,7 +185,6 @@ src/resmed_sd_monitor/
   i18n/           en / zh / ja string tables (+ parity tests)
 examples/
   generate_demo_data.py   deterministic synthetic dataset generator
-  make_banner.py          renders docs/assets/banner.png from one demo night
   demo/sample_report/     committed sample output (regenerate with CI check)
 docs/             interpretation guide · data format · tuning log · translating
 ```
